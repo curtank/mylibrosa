@@ -5,8 +5,8 @@ import random
 #import mp3play
 #beat=pickle.load(open('beattimes','rb'))
 #print beat
-def out():
-    print '*'+str(random.randint(1,10))
+def out(num):
+    print '*',str(num)
 filename='/home/curtank/Music/CloudMusic/avi.ogg'
 #filename='/home/curtank/Music/CloudMusic/s1.ogg'
 
@@ -64,14 +64,15 @@ def on_key_press(symbol, modifiers):
 pyglet.app.run()
 '''
 beatfile=open('beat_times.csv','r')
+num=0
 for time in beatfile.readlines():
     dtime=float(time)-float(sttime)
     sttime=float(time)
     #print type(dtime)
-    timer=threading.Timer(float(time),out)
+    timer=threading.Timer(float(time),out,(num,))
     timer.start()
     
-    print()
+    num+=1
 
 pygame.mixer.music.play()
 print '*start'
