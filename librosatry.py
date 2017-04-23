@@ -9,15 +9,15 @@ import librosa
 def generatebeat(filename):
         
     y, sr = librosa.load(filename)
-
+    print(y.shape)
     # 3. Run the default beat tracker
     tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
-
+    print(beat_frames.shape)
     print('Estimated tempo: {:.2f} beats per minute'.format(tempo))
 
     # 4. Convert the frame indices of beat events into timestamps
     beat_times = librosa.frames_to_time(beat_frames, sr=sr)
-    #print(beat_times)
+    print(beat_times.shape)
     return beat_times
 def main():
     import pickle
@@ -28,6 +28,7 @@ def main():
     pickle.dump(beat_times,open('beattimes','wb'))
     print('Saving output to beat_times.csv')
     librosa.output.times_csv('beat_times.csv', beat_times)
+    
     pass
 
 if __name__ == '__main__':

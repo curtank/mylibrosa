@@ -10,17 +10,17 @@ hop_length = 512
 
 # Separate harmonics and percussives into two waveforms
 y_harmonic, y_percussive = librosa.effects.hpss(y)
-print y_harmonic,y_percussive
+print y_harmonic.shape,y_percussive.shape
 # Beat track on the percussive signal
 tempo, beat_frames = librosa.beat.beat_track(y=y_percussive,
                                              sr=sr)
 
 # Compute MFCC features from the raw signal
 mfcc = librosa.feature.mfcc(y=y, sr=sr, hop_length=hop_length, n_mfcc=13)
-print mfcc
+print mfcc.shape
 # And the first-order differences (delta features)
 mfcc_delta = librosa.feature.delta(mfcc)
-print mfcc_delta
+print mfcc_delta.shape
 # Stack and synchronize between beat events
 # This time, we'll use the mean value (default) instead of median
 #beat_mfcc_delta = librosa.feature.sync(np.vstack([mfcc, mfcc_delta]),beat_frames)
